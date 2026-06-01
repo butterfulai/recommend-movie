@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}トップ | Movie Recommend{% endblock %}
+
+{% block content %}
+  <section class="mb-5">
+    <div class="d-flex justify-content-between align-items-end mb-3">
+      <div>
+        <h1 class="h2 section-title mb-1">人気映画ランキング</h1>
+        <p class="text-muted mb-0">直近でお気に入り登録が多い映画です。</p>
+      </div>
+    </div>
+    {% include 'movies/_movie_grid.html' with movies=popular_movies %}
+  </section>
+
+  <section>
+    <h2 class="h3 section-title mb-3">新着映画一覧</h2>
+    {% include 'movies/_movie_grid.html' with movies=latest_movies %}
+  </section>
+{% endblock %}
