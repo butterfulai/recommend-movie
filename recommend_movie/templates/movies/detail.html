@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ movie.title }} | Movie Recommend{% endblock %}
+
+{% block content %}
+  <article class="bg-white rounded shadow-sm overflow-hidden">
+    <img src="{{ movie.image_url|default:'https://placehold.co/1200x600?text=Movie' }}" class="movie-hero" alt="{{ movie.title }}">
+    <div class="p-4 p-lg-5">
+      <span class="badge text-bg-secondary mb-3">{{ movie.genre }}</span>
+      <h1 class="display-6 fw-bold">{{ movie.title }}</h1>
+      <p class="lead text-muted">{{ movie.description }}</p>
+
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'toggle_favorite' movie.id %}">
+          {% csrf_token %}
+          {% if is_favorite %}
+            <button class="btn btn-outline-danger" type="submit">お気に入り解除</button>
+          {% else %}
+            <button class="btn btn-danger" type="submit">お気に入り登録</button>
+          {% endif %}
+        </form>
+      {% else %}
+        <a class="btn btn-danger" href="{% url 'account_login' %}">ログインしてお気に入り登録</a>
+      {% endif %}
+    </div>
+  </article>
+{% endblock %}
